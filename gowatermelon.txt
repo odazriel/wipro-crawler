@@ -1,0 +1,10 @@
+Root: http://www.gowatermelon.com
+Pages
+External Pages
+Static Content
+	apple-touch-icon: https://static.parastorage.com/client/pfavico.ico
+	shortcut icon: https://static.parastorage.com/client/pfavico.ico
+	stylesheet: https://static.parastorage.com/services/santa/1.1355.26/static/css/viewer.css
+	script: https://static.parastorage.com/services/third-party/requirejs/2.1.15/require.min.js
+	script: https://static.parastorage.com/services/santa/1.1355.26/app/main-r.min.js
+

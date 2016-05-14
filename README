@@ -1,0 +1,31 @@
+Assumptions:
+1. I assumed it is OK to use open source frameworks, so I used Jsoup to connect to and parse an HTML document.
+2. I do not support URLs that use IPv4 or IPv6 instead of a host name.
+3. I did not use any logging mechanism, and just commented where logging should happen
+4. I do not read javacripts (embedded or external) to find links
+5. I am ignoring bookmark links (#). Two URLs that differ only in the bookmarks are identical and will be "crawled" to once.
+6. The same URL may appear multiple times in a single page's information if it appears multiple times on the page. The label of each such link is displayed as well.
+7. No use of databases to store the information, everything is in-memory.
+
+Design:
+1. The main entry point is the Crawler class.
+2. I used some encapsulation of the Jsoup connection (so, for example, it can be mocked to testing purposes), but still used Jsoup's interfaces as the connection and document.
+2a. See CrawlerTest class for an example of Mocking.
+3. The crawler is performing a breadth first search using a queue. I chose BFS, so that if you limit the amount of websites, you would get a cmore complete picture of a single page.
+4. In addition, I assumed that it would take less memory to do BFS, since the depth might be almost limitless, where each site would have a much more limited amount of links (very unsure about this...)
+5. To find the domain name, I use the domain_suffixes.config text file (so on some domains the code will not work correctly, until their suffixes are added to the file)
+6. Even if the same URL appears multiple times on the same page, it will still only be crawled to once (by checking it was already discovered).
+
+Build and Run:
+1. The project was built using Maven.
+2. The tests are implemented using JUnit 4.
+3. To run the main method (in the Main class), you need to supply at least two parameters like so:
+java com.wipro.crawler.Main <origin url> <output file> [<url limit>]
+
+For example:
+java com.wipro.crawler.Main http://wiprodigital.com wipro.txt 50
+
+4. I added the optional <url limit> because of the amount of time it might take to actually do a full scan
+5. You can see two sample results:
+5a. gowatermelon.txt (from http://gowatermelon.com) - very small site.
+5b. wipro.txt (from http://wiprodigital.com) - limited to 50 pages.
